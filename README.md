@@ -1286,17 +1286,8 @@ int main()
 > 最终分数：294
 
 
-一个简单的消息认证码。
+![](https://cdn.nlark.com/yuque/0/2019/png/298354/1563202549731-ce1a96c0-230b-4363-9d79-e99fc50ae82e.png)
 
-对于这个MAC算法：令消息$M=(X_1;||;X_2;||;\cdots;||;X_m)$，定义$\Delta (M)=(X_1;\oplus;X_2;\oplus;\cdots;\oplus;X_m)$
-
-则$MAC(K,;M) = E(K, ;\Delta (M))$
-
-如果知道${M;||;MAC(K, M)}$，可以伪造消息$M';={Y_1;||;Y_2;||;\cdots;||;Y_{m-1};||;Y_m}$其中$Y_m={Y_1;\oplus;Y_2;\oplus;\cdots;\oplus;Y_{m-1};\oplus;\Delta(M)}$
-
-则MAC值相同但是$M'$可以是任意的
-
-再结合unpad的没有检查最后一个字符范围的漏洞对$M'$截断就行了，做法不唯一，但也都大同小异
 
 ```python
 from Crypto.Util.strxor import strxor
@@ -1333,15 +1324,7 @@ print msg.encode('hex')
 > 最终分数：555
 
 
-主要是一个带线性填充的RSA广播攻击和OFB模式下的字节反转
-
-题目中的形式如下：<br />$$<br />\begin{align*}<br />(a_1m+b_1)^e&\equiv c_1 (mod\ n_1) \<br />(a_2m+b_2)^e&=c_2 (mod\ n_2) \<br />(a_3m+b_3)^e&=c_3 (mod\ n_3)<br />\end{align*}<br />$$<br />做法如下：
-
-使用CRT计算$T_i$，使得$T_i \equiv1(mod\ n_i)$ 且$T_i\equiv0(mod\ n_j)$ ，构造一个多项式$g(x)=\Sigma T_i((a_ix+b_i)^e-c_i)$
-
-那么$g(m)\equiv0(mod\ n_i)$， 且由于$gcd(n_i, n_j)=1$， 所以，$m$是$g(x)$模$N$的一个根，其中$N=\prod n_i$，又因为$m<n_i$，所以$m{1/degg(x)}$，那么只要把$g(x)$转换成首一多项式就可以使用Coppersmith理论恢复$m$了
-
-随便取一组数据计算m， sage代码如下：
+![](https://cdn.nlark.com/yuque/0/2019/png/298354/1563202575788-bee7429a-cac5-4188-80f7-9594b8bfb491.png)
 
 ```python
 from binascii import *
